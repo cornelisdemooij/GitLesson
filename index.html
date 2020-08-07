@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
 </head>
 <body>
-  <div id="graph-container"></div>
+  <div class="grid-container">
+    <div id="presentation">Test</div>
+    <div id="graph-container-remote"></div>
+    <div id="graph-container-local"></div>
+  </div>
 
   <script>
-    const graphContainer = document.getElementById("graph-container");
+    const graphContainer = document.getElementById("graph-container-remote");
     const gitgraph = GitgraphJS.createGitgraph(
       graphContainer,
       { 
@@ -32,6 +37,34 @@
     develop.commit("Prepare v1");
 
     master.merge(develop).tag("v1.0.0");
+  </script>
+  
+  <script>
+    const graphContainerLocal = document.getElementById("graph-container-local");
+    const gitgraphLocal = GitgraphJS.createGitgraph(
+      graphContainerLocal,
+      { 
+        author: "Cornelis <info@cornelisdemooij.com>",
+        //mode: "compact"
+      }
+    );
+    
+    const masterLocal = gitgraphLocal.branch("master");
+    masterLocal.commit("Initial commit");
+
+    const developLocal = masterLocal.branch("develop");
+    developLocal.commit("Add TypeScript");
+
+    const aFeatureLocal = developLocal.branch("a-feature");
+    aFeatureLocal
+      .commit("Make it work")
+      .commit("Make it right")
+      .commit("Make it fast");
+
+    developLocal.merge(aFeatureLocal);
+    developLocal.commit("Prepare v1");
+
+    masterLocal.merge(developLocal).tag("v1.0.0");
   </script>
 </body>
 </html>

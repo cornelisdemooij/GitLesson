@@ -1,0 +1,26 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 50% 50%;
+}
+
+#presentation {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+#graph-container-remote {
+  grid-column: 2;
+  grid-row: 1;
+  height: calc(50vh - 8px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#graph-container-local {
+  grid-column: 2;
+  grid-row: 2;
+  height: calc(50vh - 8px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
